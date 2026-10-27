@@ -6,9 +6,18 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 public class Character_Movement : MonoBehaviour
 {
     // Speeds for left/right movement as well as jumping
-    [Header("MovementSettings")]
+    [Header("MovementSpeeds")]
     [SerializeField] float moveSpeed = 12.0f;
     [SerializeField] float jumpPower = 8.0f;
+
+
+    [Header("GravityMultipliers")]
+    [Tooltip("How fast the player falls after hitting the apex")]
+    [SerializeField] float fallMultiplier = 2.5f;
+
+    [Tooltip("How fast the player falls if they let go of jump early (short jumps)")]
+    [SerializeField] float shortJumpMultiplier = 2.0f;
+
 
     // Things needed to do a ground check (making sure the object is on the ground)
     [Header("GroundCheck")]
@@ -41,6 +50,14 @@ public class Character_Movement : MonoBehaviour
 
         // checks if the player is on ground by checking the position of bottom, the radius for how close it is, and if it is the ground layer it is touching
         onGround = Physics2D.OverlapCircle(groundChecker.position, checkRadius, groundLayer);
+
+        if (rb.linearVelocityY < 0f)
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        } else if (rb.linearVelocityY > 0 && !(Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)) {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1) * Time.deltaTime;
+        }
+
 
         // checks for w or up and if so jump
         if ((Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed) && onGround)
