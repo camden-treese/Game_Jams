@@ -11,6 +11,7 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] float jumpPower = 8.0f;
 
 
+    // Multipliers to increase acceleration when falling
     [Header("GravityMultipliers")]
     [Tooltip("How fast the player falls after hitting the apex")]
     [SerializeField] float fallMultiplier = 2.5f;
@@ -25,11 +26,27 @@ public class Character_Movement : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float checkRadius = 0.02f;
 
+
     // Variables
     private Rigidbody2D rb;
     private float horizontalInput;
     private bool onGround;
 
+
+    // Input action variables
+    InputAction leftRightAction, jumpAction;
+
+
+    void Awake()
+    {
+        // Enables the action map "Player"
+        InputSystem.actions.FindActionMap("Player").Enable();
+
+        // bind them to the correct actions ("[MAP_NAME]/[ACTION_NAME])
+        leftRightAction = InputSystem.actions.FindAction("Person/Left-Right");
+        jumpAction = InputSystem.actions.FindAction("Player/Jump");
+        
+    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,6 +68,7 @@ public class Character_Movement : MonoBehaviour
         // checks if the player is on ground by checking the position of bottom, the radius for how close it is, and if it is the ground layer it is touching
         onGround = Physics2D.OverlapCircle(groundChecker.position, checkRadius, groundLayer);
 
+        // check if falling, increase acceleration as you fall
         if (rb.linearVelocityY < 0f)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
@@ -72,7 +90,7 @@ public class Character_Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // fiuxed horizontal movement
+        // fixed horizontal movement
         rb.linearVelocity = new Vector2(moveSpeed * horizontalInput, rb.linearVelocityY);
     }
 
