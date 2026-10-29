@@ -32,22 +32,23 @@ public class Character_Movement : MonoBehaviour
     private float horizontalInput;
     private bool onGround;
 
-
+    // ---------------------- Add Later ------------------------
     // Input action variables
-    InputAction leftRightAction, jumpAction;
+    // InputAction leftRightAction, jumpAction;
 
 
-    void Awake()
-    {
-        // Enables the action map "Player"
-        InputSystem.actions.FindActionMap("Player").Enable();
+    //void Awake()
+    //{
+    //    // Enables the action map "Player"
+    //    InputSystem.actions.FindActionMap("Player").Enable();
 
-        // bind them to the correct actions ("[MAP_NAME]/[ACTION_NAME])
-        leftRightAction = InputSystem.actions.FindAction("Person/Left-Right");
-        jumpAction = InputSystem.actions.FindAction("Player/Jump");
-        
-    }
+    //    // bind them to the correct actions ("[MAP_NAME]/[ACTION_NAME])
+    //    leftRightAction = InputSystem.actions.FindAction("Person/Left-Right");
+    //    jumpAction = InputSystem.actions.FindAction("Player/Jump");
 
+    //}
+
+    // --------------------------------------------------------
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
