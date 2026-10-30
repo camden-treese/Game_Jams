@@ -1084,6 +1084,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3621595040999455809, guid: 216fc5b9a9561dc40b80ccc7e0d3ef6f, type: 3}
+      propertyPath: waterMover
+      value: 
+      objectReference: {fileID: -1962092431775913446, guid: 8a56b4c0930b3564eba6e68462d8f228, type: 3}
+    - target: {fileID: 3621595040999455809, guid: 216fc5b9a9561dc40b80ccc7e0d3ef6f, type: 3}
       propertyPath: groundChecker
       value: 
       objectReference: {fileID: 29956775}

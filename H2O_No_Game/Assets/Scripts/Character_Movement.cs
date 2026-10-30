@@ -32,6 +32,10 @@ public class Character_Movement : MonoBehaviour
     private float horizontalInput;
     private bool onGround;
 
+    // instance of the WaterMover class
+    [SerializeField] private WaterMover waterMover;
+  
+
     // ---------------------- Add Later ------------------------
     // Input action variables
     // InputAction leftRightAction, jumpAction;
@@ -55,6 +59,10 @@ public class Character_Movement : MonoBehaviour
     {
         // gets the RigidBody component from the object
         rb = GetComponent<Rigidbody2D>();
+
+        // spawn the water object using the WaterMover class 
+        waterMover.SpawnObject();
+
     }
 
     // Update is called once per frame
@@ -73,7 +81,9 @@ public class Character_Movement : MonoBehaviour
         if (rb.linearVelocityY < 0f)
         {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        } else if (rb.linearVelocityY > 0 && !(Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)) {
+        } 
+        else if (rb.linearVelocityY > 0 && !(Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)) 
+        {
             rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (shortJumpMultiplier - 1) * Time.deltaTime;
         }
 
